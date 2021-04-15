@@ -3,7 +3,7 @@ const generateBtn = document.querySelector('#generate');
 const lowerLetters = 'abcdefghijklmnopqrstuvwxyz';
 const upperLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const numericalCharacters = '1234567890'
-const specialCharacters = '!#$%&*?';
+const specialCharacters = '!#$%&*?[](|/';
 let newPassword = [];
 let generatedPassword = '';
 
@@ -11,9 +11,9 @@ const generatePassword = () => {
 
   if (generateBtn) {
     // for character count
-    let charCount = prompt('How many characters would you like?')
+    let charCount = parseInt(prompt('How many characters would you like?'))
     if (charCount > 8 || charCount < 128) {
-      parseInt(charCount);
+      console.log(charCount);
     } else if (charCount < 8 || charCount > 128) {
       alert('You must choose between 8 to 128 characters')
     }
@@ -27,6 +27,7 @@ const generatePassword = () => {
       console.log('lowerLetterGen yes');
     } else if (lowerLetterGen === 'no') {
       console.log('lowerLetterGen no');
+      newPassword.push('');
     }
 
     // for uppercase letters
@@ -38,6 +39,7 @@ const generatePassword = () => {
       console.log('upperLetterGen yes');
     } else if (upperLetterGen === 'no') {
       console.log('upperLetterGen no');
+      newPassword.push('');
     }
 
     // for numerical characters
@@ -49,6 +51,7 @@ const generatePassword = () => {
       console.log('lowerLetterGen yes');
     } else if (numericalGen === 'no') {
       console.log('lnumericalGen no');
+      newPassword.push('');
     }
 
     // for special characters
@@ -60,18 +63,21 @@ const generatePassword = () => {
       console.log('specialCharacterGen yes');
     } else if (specialCharacterGen === 'no') {
       console.log('specialCharacterGen no');
+      newPassword.push('');
     }
- 
+
+    // alert a message if all none of them are chosen
     if (!lowerLetterGen && !upperLetterGen && !numericalGen && !specialCharacterGen) {
       alert('You did not meet the required feilds to generate a password, please try again');
 
     }
 
-    // loop throug the length of the selected character count
-    for (let i = 0; i < charCount.length; i++) {
+    // loop through the selected character count
+    for (let i = 0; i < charCount; i++) {
       newPassword[Math.floor(Math.random() * newPassword.length)]
+      generatedPassword += newPassword[Math.floor(Math.random() * newPassword.length)]
     }
-    return newPassword;
+    return generatedPassword;
   }
 }
 
